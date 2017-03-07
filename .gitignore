@@ -1,2 +1,4 @@
-/mll
+mll
+bin/mll
 mll.o
+mll.dSYM
