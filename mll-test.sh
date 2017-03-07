@@ -67,4 +67,4 @@ command="$("$MLL" --csv test-noeol.csv)" || badresult
 expected='42 test-noeol.csv'
 chktest
 
-echo "Passed test. Run \`make install' now."
+echo "Passed test."
