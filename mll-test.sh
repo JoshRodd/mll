@@ -17,7 +17,9 @@ if [ ! -x "$MLL" ]; then
 	exit 1
 fi
 
-(cd "$(dirname "$MLL")"; "$(basename "$MLL")" --help 2>&1) | cmp - "$MLLDIR"/README.md; if [ "$?" -ne 0 ]; then
+# Match the Markdown syntax in the README.md file
+(cd "$(dirname "$MLL")"; "$(basename "$MLL")" --help 2>&1 | sed 1's/^\([^#]\)/#\1/') |
+cmp - "$MLLDIR"/README.md; if [ "$?" -ne 0 ]; then
 	echo "Failed --help test."
 	exit 1
 fi
