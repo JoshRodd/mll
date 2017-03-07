@@ -1,23 +1,30 @@
 # mll-0.2/Makefile
 
 CC=cc
-CFLAGS=-c -O4 -Oz -Ofast
+CFLAGSO=-O4 -Oz -Ofast
+CFLAGS=-g -O0
 PREFIX=/usr/local
 
-all:	test
+all:	test mll Makefile
 
-mll:	mll.o
-	$(CC) mll.o -o mll
+mll:	mll.c Makefile
+	$(CC) $(CFLAGS) mll.c -o mll
 
-mll.o:	mll.c
-	$(CC) $(CFLAGS) mll.c
+bin/mll:	mll.c Makefile
+	mkdir -p bin
+	$(CC) $(CFLAGSO) mll.c -o bin/mll
+	strip bin/mll
 
-install:	mll
-	strip mll
-	install -m 755 mll "$(PREFIX)/bin"
+install:	bin/mll test Makefile
+	install -m 755 bin/mll "$(PREFIX)/bin"
+
+commit:	test clean Makefile
+	git commit
 
 clean:
-	rm -f mll.o mll
+	rm -f mll mll.o
+	rm -rf mll.dSYM bin
 
-test:	./mll-test.sh mll
-	./mll-test.sh ./mll
+test:	./mll-test.sh mll bin/mll Makefile
+	./mll-test.sh mll
+	./mll-test.sh bin/mll
