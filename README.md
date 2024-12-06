@@ -21,4 +21,4 @@ was not preceded by a double quote. CSV files with newlines or
 carriage returns embedded within double quotes will be tolerated.
 Two consecutive double quotes within a double quoted string will
 be counted as two characters; the CSV mode reports the longest field
-in terms of bytes, not character.
+in terms of bytes, not characters.
